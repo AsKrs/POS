@@ -1,0 +1,58 @@
+.manager-view-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .manager-view-table th,
+  .manager-view-table td {
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  
+  .manager-view-table th {
+    background-color: #f5f5f5;
+  }
+  
+  .manager-view-table button.minus,
+  .manager-view-table button.plus {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 3px;
+    padding: 8px 8px;
+    margin : 0 15px;
+  }
+  .manager-view-table button.delete{
+    background-color: red;
+  }
+  .manager-view-table th:nth-child(1) {
+    width: 20%;
+  }
+  
+  .manager-view-table th:nth-child(2) {
+    width:5%;
+  }
+  
+  .manager-view-table th:nth-child(3) {
+    width: 40%;
+  }
+  
+  .manager-view-table th:nth-child(4) {
+    width: 7%;
+  }
+  
+  .manager-view-table th:nth-child(5) {
+    width: 7%;
+  }
+  
+  .manager-view-table th:nth-child(6) {
+    width: 17%;
+  }
+  
+  .manager-view-table th:nth-child(7) {
+    width: 4%;
+  }
+  
+  

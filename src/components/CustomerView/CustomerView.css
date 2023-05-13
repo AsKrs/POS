@@ -1,0 +1,37 @@
+.customer-view {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.customer-view th,
+.customer-view td {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.customer-view th {
+  background-color: #f5f5f5;
+}
+
+.customer-view th:nth-child(1) {
+  width: 5%;
+}
+
+.customer-view th:nth-child(2) {
+  width:30%;
+}
+
+.customer-view th:nth-child(3) {
+  width: 7%;
+}
+
+.customer-view th:nth-child(4) {
+  width: 3%;
+}
+
+.customer-view th:nth-child(5) {
+  width: 10%;
+}
+
+

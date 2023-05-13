@@ -1,0 +1,73 @@
+/* ManagerView.css */
+h3 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    
+  }
+  
+  form {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  input[type="text"],
+  input.numberIn {
+    padding: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    height: 2rem;
+  }
+  
+  button {
+    padding: 0.5rem;
+    background-color: #45a29e;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+  } 
+
+  .barcodeDiv{
+    margin-top : 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  .barcode {
+    font-size: 24px;
+    padding: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    height: 2rem;
+    width: 50vh;
+    margin: 0 15px;
+    margin-bottom: 1rem;
+  }
+  
+  
+  .barcodeDiv button {
+    background-color: #7f50d6;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 0.5rem;
+    color: white;
+    align-items: center;
+    display: flex;
+    margin-top: -1rem;
+  }
+  
