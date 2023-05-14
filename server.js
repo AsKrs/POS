@@ -2,6 +2,8 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const socketIO = require("socket.io");
+const db = require("./db");
+const queries = require("./queries");
 
 const app = express();
 
@@ -20,8 +22,6 @@ const PORT = process.env.PORT || 5000;
 let items = [];
 
 io.on('connection', (socket) => {
-  console.log('Client connected');
-
   socket.emit('setItems', items);
 
   socket.on("addItem", (newItem) => {
@@ -61,8 +61,14 @@ io.on('connection', (socket) => {
     io.emit('setItems', items);
   });
 
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
+  ////////////////////////////////////////////////////////////////////
+
+  db.query(queries.getAllProducts, (error, result) => {
+    if (error) {
+      console.error(error);
+    } else {
+      socket.emit("setProducts", result);
+    }
   });
 });
 

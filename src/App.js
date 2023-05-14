@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CustomerView from "./components/CustomerView/CustomerView";
 import ManagerView from "./components/ManagerView/ManagerView.js";
+import InventoryManagement from "./components/ManagerView/InventoryManagement.js";
 import { io } from "socket.io-client";
 
 const socket = io("http://localhost:5000");
@@ -68,6 +69,7 @@ function App() {
             />
           }
         />
+        <Route path="/Inventory" element={<InventoryManagement/>}/>
       </Routes>
     </Router>
   );

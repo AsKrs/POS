@@ -1,11 +1,3 @@
-/* ManagerView.css */
-h3 {
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 3rem;
-    
-  }
-  
   form {
     display: flex;
     gap: 0.5rem;
@@ -70,4 +62,27 @@ h3 {
     display: flex;
     margin-top: -1rem;
   }
+
+
+  h3{
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  }
   
+  .menuButton{
+    float:right;
+    height:4rem;
+    width: 4rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    background-color: #2587c0;
+    border: none;
+    border-radius: 3px;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    padding: 0.5rem;
+    color: white;
+    align-items: center;
+  }
