@@ -6,6 +6,8 @@ const db = require("./db");
 const queries = require("./queries");
 
 const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 // CORS 미들웨어 적용
 app.use(cors());
@@ -63,13 +65,68 @@ io.on('connection', (socket) => {
 
   ////////////////////////////////////////////////////////////////////
 
-  db.query(queries.getAllProducts, (error, result) => {
-    if (error) {
-      console.error(error);
-    } else {
-      socket.emit("setProducts", result);
-    }
-  });
+  app.get ('/api/products', (req, res) => {
+    db.query(queries.getAllProducts, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        res.send(result);
+      }
+    });
+  }
+  );
+
+  app.get('/api/brands', (req, res) => {
+    db.query(queries.getAllBrand, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        res.send(result);
+      }
+    });
+  }
+  );
+
+  app.get('/api/types', (req, res) => {
+    db.query(queries.getAllCategory, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        res.send(result);
+      }
+    });
+  }
+  );
 });
+
+app.post('/api/brandsAdd', (req, res) => {
+  const brandName = req.body.name;
+  db.query(queries.insertBrand, brandName, (err, result) => {
+    if (err) {
+      console.log(err);
+      } else {
+        console.log(result);
+        res.send(result);
+        }
+    });
+  }
+);
+
+app.post('/api/typesAdd', (req, res) => {
+  const typeName = req.body.name;
+  db.query(queries.insertTypes, typeName, (err, result) => {
+    if (err) {
+      console.log(err);
+      } else {
+        console.log(result);
+        res.send(result);
+        }
+    });
+  }
+);
+
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));

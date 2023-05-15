@@ -44,6 +44,9 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
     setMenuOpen(!menuOpen);
   };
 
+  const handleCloseModal = () => {
+    setMenuOpen(false);
+  };
 
   return (
     <div>
@@ -53,6 +56,7 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
         </button>
         {menuOpen && (
           <Modal
+          handleClose={handleCloseModal}
         />
         )}
       <form onSubmit={handleSubmit}>

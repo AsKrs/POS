@@ -1,0 +1,116 @@
+h1{
+  text-align: center;
+}
+.buttonHandler{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.productButton,
+.brandButton,
+.typeButton {
+  min-width: 120px;
+  height: 40px;
+  margin-right: 5px;
+  outline: none;
+  border: 1px solid #000;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 눌린 버튼에 대하여 색상 변경을 위한 CSS 추가 */
+.productButton.active,
+.brandButton.active,
+.typeButton.active {
+  background-color: #ccc;
+  color: #000;
+}
+.editButton {
+  min-width: 120px;
+  height: 40px;
+  margin-right: 5px;
+  outline: none;
+  border: 1px solid #000;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.editButton.active {
+  background-color: #ccc;
+  color: #000;
+}
+
+.inventoryTable {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.inventoryTable th, .inventoryTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.inventoryTable th {
+  text-align: left;
+  background-color: #333;
+  color: black;
+  font-weight: bold;
+}
+
+.inventoryTable tr {
+  transition: all 0.2s;
+}
+
+.inventoryTable tr:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.inventoryTable button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.inventoryTable button:hover {
+  background-color: #ff7962;
+}
+
+.inventoryTable th:nth-child(1) {
+  width: 2%;
+}
+
+.inventoryTable th:nth-child(2) {
+  width:5%;
+}
+.inventoryTable th:nth-child(3) {
+  width:10%;
+}
+.inventoryTable th:nth-child(4) {
+  width:3%;
+}
+.inventoryTable th:nth-child(5) {
+  width:5%;
+}
+.inventoryTable th:nth-child(6) {
+  width:5%;
+}
+.inventoryTable th:nth-child(7) {
+  width:5%;
+}
+.inventoryTable th:nth-child(8) {
+  width:2%;
+}
+
+.brandform{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  
+}
