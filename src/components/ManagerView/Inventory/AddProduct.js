@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const AddProduct = ({ handleProduct }) => {
 const [barcode, setBarcode] = useState("");
@@ -7,6 +8,22 @@ const [price, setPrice] = useState("");
 const [quantity, setQuantity] = useState("");
 const [type, setType] = useState("");
 const [brand, setBrand] = useState("");
+const [brandList, setBrandList] = useState([]);
+const [typeList, setTypeList] = useState([]);
+
+useEffect(() => {
+  axios.get("http://localhost:5000/api/brands").then((res) => {
+    setBrandList(res.data);
+  });
+}, []);
+
+useEffect(() => {
+  axios.get("http://localhost:5000/api/types").then((res) => {
+    setTypeList(res.data);
+  });
+}, []);
+
+
 
 
 const handleSubmit = (event) => {
@@ -27,19 +44,6 @@ setQuantity("");
 setType("");
 setBrand("");
 };
-
-const brandList = [
-    { id: 1, name: 'Branding' },
-    { id: 2, name: 'New Brand' },
-    // ...
-    ]
-    
-    
-    const typeList = [
-    { id: 1, name: 'Digital' },
-    { id: 2, name: 'Physical' },
-    // ...
-    ]
 
 
   return (
@@ -71,8 +75,8 @@ const brandList = [
       <select value={type} onChange={(event) => setType(event.target.value)}>
         <option value="">종류 선택</option>
         {typeList.map((t) => (
-          <option key={t.id} value={t.name}>
-            {t.name}
+          <option key={t.id} value={t.types}>
+            {t.types}
           </option>
         ))}
       </select>
@@ -80,8 +84,8 @@ const brandList = [
       <select value={brand} onChange={(event) => setBrand(event.target.value)}>
         <option value="">브랜드 선택</option>
         {brandList.map((b) => (
-          <option key={b.id} value={b.name}>
-            {b.name}
+          <option key={b.id} value={b.브랜드}>
+            {b.브랜드}
           </option>
         ))}
       </select>

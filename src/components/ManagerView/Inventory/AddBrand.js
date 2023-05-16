@@ -11,11 +11,9 @@ const AddBrand = ({ handleBrand, handleType }) => {
   useEffect(() => {
     axios.get("http://localhost:5000/api/brands").then((res) => {
       setBrandName(res.data);
-      console.log(res.data);
     });
     axios.get("http://localhost:5000/api/types").then((res) => {
       setTypeName(res.data);
-      console.log(res.data);
     });
   }, []);
 
@@ -33,12 +31,13 @@ const AddBrand = ({ handleBrand, handleType }) => {
     if (exists) {
       alert("이미 등록된 브랜드입니다.");
     } else {
-      axios.post("http://localhost:5000/api/brandsAdd", { name: brandNameAdd }).then(() => {
-        axios.get("http://localhost:5000/api/brands").then((res) => {
-          setBrandName(res.data);
-          console.log(res.data);
+      axios
+        .post("http://localhost:5000/api/brandsAdd", { name: brandNameAdd })
+        .then(() => {
+          axios.get("http://localhost:5000/api/brands").then((res) => {
+            setBrandName(res.data);
+          });
         });
-      });
     }
     event.preventDefault();
   };
@@ -49,12 +48,13 @@ const AddBrand = ({ handleBrand, handleType }) => {
     if (exists) {
       alert("이미 등록된 종류입니다.");
     } else {
-      axios.post("http://localhost:5000/api/typesAdd", { name: typeNameAdd }).then(() => {
-        axios.get("http://localhost:5000/api/types").then((res) => {
-          setTypeName(res.data);
-          console.log(res.data);
+      axios
+        .post("http://localhost:5000/api/typesAdd", { name: typeNameAdd })
+        .then(() => {
+          axios.get("http://localhost:5000/api/types").then((res) => {
+            setTypeName(res.data);
+          });
         });
-      });
     }
     event.preventDefault();
   };
@@ -63,11 +63,31 @@ const AddBrand = ({ handleBrand, handleType }) => {
     // 추가 기능 생략
   };
 
-  const handleDelete = (index) => {
+  const handleDeleteBrand = (index) => {
     if (window.confirm("정말로 삭제하시겠습니까?")) {
-      const updatedList = brandName.filter((_, i) => i !== index);
-      setBrandName(updatedList);
-      handleBrand(updatedList);
+      axios
+        .post("http://localhost:5000/api/brandsDelete", {
+          idx: brandName[index].idx,
+        })
+        .then(() => {
+          axios.get("http://localhost:5000/api/brands").then((res) => {
+            setBrandName(res.data);
+          });
+        });
+    }
+  };
+
+  const handleDeleteTypes = (index) => {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      axios
+        .post("http://localhost:5000/api/typesDelete", {
+          idx: typeName[index].idx,
+        })
+        .then(() => {
+          axios.get("http://localhost:5000/api/types").then((res) => {
+            setTypeName(res.data);
+          });
+        });
     }
   };
 
@@ -101,7 +121,7 @@ const AddBrand = ({ handleBrand, handleType }) => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleDelete(index);
+                        handleDeleteBrand(index);
                       }}
                     >
                       삭제
@@ -124,7 +144,7 @@ const AddBrand = ({ handleBrand, handleType }) => {
             />
             <button type="submit">종류 추가하기</button>
           </form>
-          <table className ="BrandTable">
+          <table className="BrandTable">
             <thead>
               <tr>
                 <th>종류명</th>
@@ -139,7 +159,7 @@ const AddBrand = ({ handleBrand, handleType }) => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleDelete(index);
+                        handleDeleteTypes(index);
                       }}
                     >
                       삭제

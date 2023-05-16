@@ -3,6 +3,7 @@ import './InventoryManagement.css';
 import AddProduct from './AddProduct';
 import AddBrand from './AddBrand';
 import InventoryTable from './InventoryTable';
+import { Link } from 'react-router-dom';
 
 const InventoryManagement = ({ handleInventory }) => {
   const [viewMode, setViewMode] = useState('addProduct');
@@ -20,6 +21,9 @@ const InventoryManagement = ({ handleInventory }) => {
 
   return (
     <div className="inventory-management">
+      <Link to="/">
+      <button className='homebutton'>홈으로</button>
+      </Link>
       <h1>재고 관리</h1>
 
       {/* 버튼 클릭 이벤트에 맞춰 react state 값을 바꾸어 보여주는 form을 동적으로 구성한다. */}

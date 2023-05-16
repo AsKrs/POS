@@ -28,7 +28,7 @@ const ManagerViewTable = ({
             <td></td>
             <td>{index + 1}</td>
             <td>{item.name}</td>
-            <td>{item.price}</td>
+            <td>{numberWithCommas(item.price)}원</td>
             <td>
               <button
                 className="minus"
@@ -37,7 +37,7 @@ const ManagerViewTable = ({
               {item.quantity}
               <button className="plus" onClick={() => onPlus(item.name)}></button>
             </td>
-            <td>{numberWithCommas(item.price*item.quantity)} 원</td>
+            <td>{numberWithCommas(item.price*item.quantity)}원</td>
             <td>
               {showDeleteButton && (
                 <button className="delete" onClick={() => removeItem(item.name)}>

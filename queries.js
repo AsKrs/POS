@@ -11,7 +11,7 @@ const insertTypes = "INSERT INTO types (types) VALUES (?)";
 
 const deleteProducts = "UPDATE products SET deleteyn = 'Y' WHERE idx = ?";
 const deleteBrand = "UPDATE brand SET deleteyn = 'Y' WHERE idx = ?";
-const deleteCategory = "UPDATE types SET deleteyn = 'Y' WHERE idx = ?";
+const deleteTypes = "UPDATE types SET deleteyn = 'Y' WHERE idx = ?";
 
 //////////////////////////////////
 
@@ -23,5 +23,8 @@ module.exports = {
     getAllBrand,
     getAllCategory,
     insertBrand,
-    insertTypes
+    insertTypes,
+    deleteBrand,
+    deleteProducts,
+    deleteTypes,
 };

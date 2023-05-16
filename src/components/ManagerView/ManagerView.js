@@ -36,8 +36,8 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
     });
 
     setName("");
-    setQuantity(0);
-    setPrice(0);
+    setQuantity("");
+    setPrice("");
   };
 
   const handleMenuToggle = () => {
@@ -75,7 +75,6 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
           <input
             className="numberIn"
             type="number"
-            value={""}
             placeholder="수량"
             onChange={(e) => setQuantity(e.target.value)}
           />
@@ -85,7 +84,6 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
           <input
             className="numberIn"
             type="number"
-            value={""}
             placeholder="가격"
             onChange={(e) => setPrice(e.target.value)}
           />
