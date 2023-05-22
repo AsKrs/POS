@@ -34,6 +34,8 @@ const editableFields = {
       `;
   };
 
+const orderSuccess = "INSERT INTO orders (주문번호, 상품번호, 상품이름, 수량, 가격, 결제 방법, 받은 금액, 거스름 돈, 브랜드, 종류) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+
 
 module.exports = {
     getAllProducts,
@@ -45,5 +47,6 @@ module.exports = {
     deleteBrand,
     deleteProducts,
     deleteTypes,
+    orderSuccess,
     updateProductField,
 };

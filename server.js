@@ -198,5 +198,24 @@ app.post("/api/inventoryUpdate", (req, res) => {
   });
 });
 
+app.post("/api/orderSuccess", (req, res) => {
+  const items = req.body;
+  
+  items.forEach(item => {
+    const {idx, itemName, quantity, price, paymentType, amountGiven, change, brand, type} = item;
+
+    db.query(queries.orderSuccess, [idx, itemName, quantity, price, paymentType, amountGiven, change, brand, type], (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+          console.log(result);
+      }
+    });
+  });
+  res.send('성공적으로 저장되었습니다.');
+});
+
+
+
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));

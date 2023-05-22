@@ -3,6 +3,7 @@ import ManagerViewTable from "./ManagerViewTable";
 import "./ManagerView.css";
 import Modal from "./Modal";
 import { numberWithCommas } from "../utils.js";
+import axios from "axios";
 
 const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
   const [name, setName] = useState("");
@@ -70,13 +71,37 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
       alert("받은 금액이 부족합니다.");
       return;
     }
-
+    else {
+      // 주문 정보를 서버에 보낼 데이터 형식으로 변경
+      const requestData = items.map(item => ({
+        idx: item.idx, // 상품번호
+        itemName: item.itemName,
+        quantity: item.quantity,
+        price: item.price,
+        paymentType,
+        amountGiven,
+        change,
+        brand: item.brand,
+        type: item.type,
+      }));
+  
+      axios.post("http://localhost:5000/api/orderSuccess", requestData)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  
+    }
+    console.log(items)
     console.log("결제 정보를 데이터베이스에 저장하십시오.");
-
-    setPaymentType(null);
+  
+    setPaymentType('cash');
     setAmountGiven(0);
     setChange(0);
   };
+  
 
   const renderNumberPad = () => {
     return (
