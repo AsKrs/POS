@@ -1,13 +1,17 @@
 .btform {
-margin-top :5rem;
+  margin-top: 5rem;
   display: flex;
-    justify-content: space-around;
+  justify-content: center;
 }
 
 .brandform,
 .typeform {
   display: flex;
   flex-direction: column;
+}
+
+.brandform {
+  margin-right: 2rem;
 }
 .BrandTable {
   border-collapse: collapse;

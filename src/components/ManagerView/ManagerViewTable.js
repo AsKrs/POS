@@ -9,6 +9,9 @@ const ManagerViewTable = ({
   onMinus,
   onPlus,
 }) => {
+
+
+
   return (
     <table className="manager-view-table">
       <thead>

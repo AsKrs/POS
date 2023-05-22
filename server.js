@@ -72,7 +72,7 @@ io.on("connection", (socket) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(result);
+        
         res.send(result);
       }
     });
@@ -83,7 +83,7 @@ io.on("connection", (socket) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(result);
+        
         res.send(result);
       }
     });
@@ -94,12 +94,35 @@ io.on("connection", (socket) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(result);
+        
         res.send(result);
       }
     });
   });
 });
+
+app.post("/api/inventoryAdd", (req, res) => {
+  const barcode = req.body.barcode;
+  const name = req.body.name;
+  const brand = req.body.brand;
+  const type = req.body.type;
+  const quantity = req.body.quantity;
+  const price = req.body.price;
+  db.query(
+    queries.inventoryAdd,
+    [barcode, name, quantity, price, type, brand],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        res.send(result);
+      }
+    }
+  );
+});
+
+
 
 app.post("/api/brandsAdd", (req, res) => {
   const brandName = req.body.name;
@@ -116,6 +139,18 @@ app.post("/api/brandsAdd", (req, res) => {
 app.post("/api/typesAdd", (req, res) => {
   const typeName = req.body.name;
   db.query(queries.insertTypes, typeName, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+app.post("/api/inventoryDelete", (req, res) => {
+  const productIdx = req.body.idx;
+  db.query(queries.deleteProducts, [productIdx], (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -148,5 +183,20 @@ app.post("/api/typesDelete", (req, res) => {
     }
   });
 });
+
+app.post("/api/inventoryUpdate", (req, res) => {
+  const productIdx = req.body.idx;
+  const field = req.body.field;
+  const value = req.body.value;
+  db.query(queries.updateProductField(productIdx, field, value), (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));

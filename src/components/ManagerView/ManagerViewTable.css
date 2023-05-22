@@ -1,29 +1,40 @@
 .manager-view-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .manager-view-table th,
-  .manager-view-table td {
-    border: 1px solid #ccc;
-    text-align: center;
-    padding: 0.5rem;
-  }
-  
-  .manager-view-table th {
-    background-color: #f5f5f5;
-  }
-  
-  .manager-view-table button.minus,
-  .manager-view-table button.plus {
-    background-color: #4caf50;
-    border: none;
-    color: white;
-    font-size: 14px;
-    border-radius: 3px;
-    padding: 8px 8px;
-    margin : 0 15px;
-  }
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.manager-view-table th,
+.manager-view-table td {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.manager-view-table th {
+  background-color: #f5f5f5;
+}
+
+.manager-view-table button.minus,
+.manager-view-table button.plus {
+  background-color: transparent;
+  border: 2px solid #4caf50;
+  color: #4caf50;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+
+.manager-view-table button.minus:hover,
+.manager-view-table button.plus:hover {
+  background-color: #4caf50;
+  color: white;
+}
   .manager-view-table button.delete{
     background-color: red;
   }
@@ -44,11 +55,11 @@
   }
   
   .manager-view-table th:nth-child(5) {
-    width: 7%;
+    width: 12%;
   }
   
   .manager-view-table th:nth-child(6) {
-    width: 17%;
+    width: 12%;
   }
   
   .manager-view-table th:nth-child(7) {

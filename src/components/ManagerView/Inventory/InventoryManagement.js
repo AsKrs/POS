@@ -11,11 +11,11 @@ const InventoryManagement = ({ handleInventory }) => {
   function renderForm() {
     switch (viewMode) {
       case 'addProduct':
-        return <AddProduct handleProduct={handleInventory} />;
+        return <AddProduct  />;
       case 'addBrand':
-        return <AddBrand handleBrand={handleInventory} />;
+        return <AddBrand  />;
       default:
-        return <AddProduct handleProduct={handleInventory} />;
+        return <AddProduct  />;
     }
   }
 
