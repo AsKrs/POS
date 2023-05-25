@@ -16,9 +16,11 @@ const Modal = ({ handleClose, handleInventory, handleRevenue }) => (
         재고 관리/조회
       </div>
       </Link>
+      <Link to="/revenue">
       <div className="modal-button" onClick={handleRevenue}>
         매출 관리/조회
       </div>
+      </Link>
     </div>
   </div>
 );

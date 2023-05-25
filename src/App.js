@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CustomerView from "./components/CustomerView/CustomerView";
 import ManagerView from "./components/ManagerView/ManagerView.js";
 import InventoryManagement from "./components/ManagerView/Inventory/InventoryManagement.js";
+import Revenue from "./components/ManagerView/Revenue/Revenue.js";
 import { io } from "socket.io-client";
+
 
 const socket = io("http://localhost:5000");
 
@@ -39,7 +41,6 @@ function App() {
   };
   
   const removeItem = (name) => {
-    console.log(name);
     socket.emit("removeItem", name);
   };
 
@@ -70,6 +71,7 @@ function App() {
           }
         />
         <Route path="/Inventory" element={<InventoryManagement/>}/>
+        <Route path="/Revenue" element={<Revenue />} />
       </Routes>
     </Router>
   );

@@ -34,8 +34,14 @@ const editableFields = {
       `;
   };
 
-const orderSuccess = "INSERT INTO orders (주문번호, 상품번호, 상품이름, 수량, 가격, 결제 방법, 받은 금액, 거스름 돈, 브랜드, 종류) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+  const orderSuccess = "INSERT INTO orders (order_number, item_name, quantity, price, payment_type, amount_given, total_price, change_received) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
+  const orderHistory = `
+  SELECT * 
+  FROM orders
+  WHERE (? IS NULL OR DAY(order_time) = ?)
+    AND (? IS NULL OR MONTH(order_time) = ?);
+`;
 
 module.exports = {
     getAllProducts,
@@ -48,5 +54,6 @@ module.exports = {
     deleteProducts,
     deleteTypes,
     orderSuccess,
+    orderHistory,
     updateProductField,
 };

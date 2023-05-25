@@ -178,7 +178,6 @@ app.post("/api/typesDelete", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result);
       res.send(result);
     }
   });
@@ -202,9 +201,9 @@ app.post("/api/orderSuccess", (req, res) => {
   const items = req.body;
   
   items.forEach(item => {
-    const {idx, itemName, quantity, price, paymentType, amountGiven, change, brand, type} = item;
+    const {orderNumber, itemName, quantity, price, paymentType, amountGiven, totalPrice, change} = item;
 
-    db.query(queries.orderSuccess, [idx, itemName, quantity, price, paymentType, amountGiven, change, brand, type], (err, result) => {
+    db.query(queries.orderSuccess, [orderNumber, itemName, quantity, price, paymentType, amountGiven, totalPrice, change], (err, result) => {
       if (err) {
         console.log(err);
       } else {
@@ -212,7 +211,19 @@ app.post("/api/orderSuccess", (req, res) => {
       }
     });
   });
-  res.send('성공적으로 저장되었습니다.');
+  res.status(200).send({message: '주문이 성공적으로 저장되었습니다.'});
+});
+
+app.get("/api/orderHistory", (req, res) => {
+  const { day, month } = req.query;
+
+  db.query(queries.orderHistory, [day, day, month, month], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
 });
 
 

@@ -7,12 +7,12 @@ import axios from "axios";
 
 const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
   const [barcode, setBarcode] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [total, setTotal] = useState(0);
-  const [paymentType, setPaymentType] = useState("cash");
+  const [paymentType, setPaymentType] = useState("현금");
   const [amountGiven, setAmountGiven] = useState(0);
   const [change, setChange] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -41,14 +41,23 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
       name: name.trim(),
       quantity: Number(quantity),
       price: Number(price),
-    });
+});
 
+    setBarcode("");
     setName("");
     setQuantity("");
     setPrice("");
-    setBarcode("");
-  };
+};
 
+function generateOrderNumber() {
+  const now = new Date();
+  const year = now.getFullYear().toString().substr(-2);
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const randomNum = Math.floor(Math.random() * 10000);
+
+  return `W${year}${month}${day}${randomNum}`;
+}
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
@@ -65,29 +74,35 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
     setAmountGiven(value);
     setChange(value - total);
   };
-
+  const removeAllItems = () => {
+    items.forEach((item) => {
+      removeItem(item.name);
+    });
+  };
   const handlePayment = () => {
-    if (paymentType === "cash" && change < 0) {
+    if (paymentType === "현금" && change < 0) {
       alert("받은 금액이 부족합니다.");
       return;
     }
     else {
+      const orderNumber = generateOrderNumber(); // 주문번호 생성
       // 주문 정보를 서버에 보낼 데이터 형식으로 변경
       const requestData = items.map(item => ({
-        idx: item.idx, // 상품번호
-        itemName: item.itemName,
+        orderNumber : orderNumber,
+        itemName: item.name,
         quantity: item.quantity,
         price: item.price,
         paymentType,
         amountGiven,
-        change,
-        brand: item.brand,
-        type: item.type,
+        totalPrice: total,
+        change
       }));
   
+      console.log(requestData);
       axios.post("http://localhost:5000/api/orderSuccess", requestData)
         .then((res) => {
           console.log(res.data);
+          removeAllItems();
         })
         .catch((err) => {
           console.log(err);
@@ -97,9 +112,11 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
     console.log(items)
     console.log("결제 정보를 데이터베이스에 저장하십시오.");
   
-    setPaymentType('cash');
+    setPaymentType('현금');
     setAmountGiven(0);
     setChange(0);
+    alert ("결제가 완료되었습니다.");
+    setShowModal(false);
   };
   
 
@@ -171,19 +188,19 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
                   <div className="paymentType">
                     <button
                       className="cashbutton"
-                      onClick={() => handlePaymentType("cash")}
+                      onClick={() => handlePaymentType("현금")}
                     >
                       현금 결제
                     </button>
                     <button
                       className="cardbutton"
-                      onClick={() => handlePaymentType("card")}
+                      onClick={() => handlePaymentType("카드")}
                     >
                       카드 결제
                     </button>
                   </div>
                 </div>
-                {paymentType === "cash" && (
+                {paymentType === "현금" && (
                   <div>
                     <div>받은 금액: {numberWithCommas(amountGiven)}원</div>
                     <br />
@@ -192,9 +209,9 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
                     <div>거스름돈: {numberWithCommas(change)}원</div>
                   </div>
                 )}
-                {paymentType === "card" && (
+                {paymentType === "카드" && (
                   <div>
-                    <div>결제 금액: {totalPrice}원</div>
+                    <div>결제 금액: {numberWithCommas(totalPrice)}원</div>
                   </div>
                 )}
                 <button className="confirm" onClick={handlePayment}>
@@ -225,6 +242,7 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
             <input
               className="numberIn"
               type="number"
+              value={quantity}
               placeholder="수량"
               onChange={(e) => setQuantity(e.target.value)}
             />
@@ -233,6 +251,7 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
             <input
               className="numberIn"
               type="number"
+              value={price}
               placeholder="가격"
               onChange={(e) => setPrice(e.target.value)}
             />

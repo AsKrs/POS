@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 15px;
+}
+
+th {
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+
+.summary {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+
+.infoRevenue{
+  text-align: center;
+}
+.daySel{
+
+  text-align: center;
+}
+
+.dayselLabel{
+  display: block;
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.daySel input{
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  font-size: 16px;
+}
