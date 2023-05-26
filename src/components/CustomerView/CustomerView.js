@@ -13,6 +13,7 @@ const CustomerView = ({ items }) => {
   const total = numberWithCommas(getTotal());
   return (
     <div>
+      <h3>뷰티 화장품</h3>
       <table className="customer-view">
         <thead>
           <tr>

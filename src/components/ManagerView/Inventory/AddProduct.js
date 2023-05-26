@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./AddProduct.css";
+
 
 const AddProduct = () => {
   const [barcode, setBarcode] = useState("");
@@ -63,8 +65,9 @@ const AddProduct = () => {
   };
 
   return (
+    <div className="addProduct">
     <form onSubmit={handleSubmit}>
-      <input
+      <input className="addProduct__input"
         type="text"
         value={barcode}
         onChange={(event) => setBarcode(event.target.value)}
@@ -77,7 +80,7 @@ const AddProduct = () => {
           }
         }}
       />
-      <input
+      <input className="addProduct__input"
         name="name"
         type="text"
         value={name}
@@ -85,20 +88,20 @@ const AddProduct = () => {
         placeholder="제품명"
       />
 
-      <input
+<input className="addProduct__input"
         type="text"
         value={price}
         onChange={(event) => setPrice(event.target.value)}
         placeholder="가격"
       />
-      <input
+      <input className="addProduct__input"
         type="text"
         value={quantity}
         onChange={(event) => setQuantity(event.target.value)}
         placeholder="수량"
       />
 
-      <select value={type} onChange={(event) => setType(event.target.value)}>
+      <select className="addProduct__select" value={type} onChange={(event) => setType(event.target.value)}>
         <option value="">종류 선택</option>
         {typeList.map((t) => (
           <option key={t.id} value={t.types}>
@@ -107,7 +110,7 @@ const AddProduct = () => {
         ))}
       </select>
 
-      <select value={brand} onChange={(event) => setBrand(event.target.value)}>
+      <select className="addProduct__select" value={brand} onChange={(event) => setBrand(event.target.value)}>
         <option value="">브랜드 선택</option>
         {brandList.map((b) => (
           <option key={b.id} value={b.브랜드}>
@@ -115,8 +118,9 @@ const AddProduct = () => {
           </option>
         ))}
       </select>
-      <button type="submit">추가</button>
+      <button className="addProduct__button"type="submit">추가</button>
     </form>
+    </div>
   );
 };
 

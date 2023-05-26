@@ -7,15 +7,15 @@ const queries = require("./queries");
 
 const app = express();
 const bodyParser = require("body-parser");
+const { el } = require("date-fns/locale");
 app.use(bodyParser.json());
 
-// CORS 미들웨어 적용
 app.use(cors());
 
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000", // 여기서 클라이언트 주소를 서버에 허용하고 있습니다. 필요한 경우 적절한 출처 주소로 바꿔주세요.
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
@@ -208,11 +208,18 @@ app.post("/api/orderSuccess", (req, res) => {
         console.log(err);
       } else {
           console.log(result);
+
+          db.query("UPDATE products SET 수량 = 수량 - ? WHERE 이름 = ?", [quantity, itemName], (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+          });
       }
     });
   });
   res.status(200).send({message: '주문이 성공적으로 저장되었습니다.'});
 });
+
 
 app.get("/api/orderHistory", (req, res) => {
   const { day, month } = req.query;
@@ -226,6 +233,24 @@ app.get("/api/orderHistory", (req, res) => {
   });
 });
 
+app.get("/api/items/:barcode", (req, res) => {
+  const barcode = req.params.barcode;
+
+  db.query(queries.barcodeSearch, [barcode], (err, result) => {
+    if (err) {
+      console.error("DB query error: ", err);
+      res.sendStatus(500);
+      return;
+    }
+
+    if (result.length > 0) {
+      const { 이름, 가격 } = result[0];
+      res.send({ 이름, 가격 });
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
 
 
 

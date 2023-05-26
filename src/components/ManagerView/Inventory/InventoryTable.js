@@ -74,7 +74,7 @@ const InventoryTable = ({ handleUpdate }) => {
         {products.map((product, index) => (
           <tr key={index}>
             <td onClick={(e) => handleUpdateClick(e, product.idx, "상품 번호")}>{product.idx}</td>
-            <td onClick={(e) => handleUpdateClick(e, product.idx, "바코드")}>{product.바코드}</td>
+            <td onClick={(e) => handleUpdateClick(e, product.idx, "바코드")}>{product.barcode}</td>
             <td onClick={(e) => handleUpdateClick(e, product.idx, "상품명")}>{product.이름}</td>
             <td onClick={(e) => handleUpdateClick(e, product.idx, "수량")}>{product.수량}</td>
             <td onClick={(e) => handleUpdateClick(e, product.idx, "가격")}>{product.가격}</td>

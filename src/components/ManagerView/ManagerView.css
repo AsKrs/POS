@@ -130,7 +130,31 @@ h3 {
   height:90px;
   width:90px;
 }
+.item-selection-modal{
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+}
+
+.modal-content button{
+  background-color: #2587c0;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 30px;
+  height:90px;
+  width:90px;
+  margin: 0.5rem;
+}
 .modal22 {
   position: fixed;
   z-index: 100;

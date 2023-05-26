@@ -58,19 +58,19 @@ const Revenue = () => {
       </Link>
       <h1>매출 관리/조회 페이지</h1>
       <div className="daySel">
-        <label className="dayselLabel" htmlFor="day">Day: </label>
-        <input
-          type="number"
-          id="day"
-          value={day || ""}
-          onChange={(e) => setDay(e.target.value)}
-        />
-        <label className="dayselLabel" htmlFor="month">Month: </label>
+        <label className="dayselLabel" htmlFor="month">월: </label>
         <input
           type="number"
           id="month"
           value={month || ""}
           onChange={(e) => setMonth(e.target.value)}
+        />
+        <label className="dayselLabel" htmlFor="day">일: </label>
+        <input
+          type="number"
+          id="day"
+          value={day || ""}
+          onChange={(e) => setDay(e.target.value)}
         />
       </div>
       <div className="infoRevenue">
@@ -98,7 +98,11 @@ const Revenue = () => {
               <td>{order.quantity}</td>
               <td>{numberWithCommas(order.price)}원</td>
               <td>{numberWithCommas(order.total_price)}원</td>
-              <td>{order.payment_type}</td>
+              {order.payment_type === "현금" ? (
+                <td className="cash">{order.payment_type}    {numberWithCommas(order.amount_given)}</td>
+              ) : (
+                <td className="card">{order.payment_type}</td>
+              )}
               <td>{formatOrderTime(order.order_time)}</td>
             </tr>
           ))}

@@ -26,9 +26,7 @@ const InventoryManagement = ({ handleInventory }) => {
       </Link>
       <h1>재고 관리</h1>
 
-      {/* 버튼 클릭 이벤트에 맞춰 react state 값을 바꾸어 보여주는 form을 동적으로 구성한다. */}
       <div className="buttonHandler">
-        {/* 기존의 buttons 클래스 안에 있는 내용을 삭제하고 새로 생성된 버튼들을 추가합니다. */}
         <div className="buttons">
           <button
             className={`productButton${viewMode === 'addProduct' ? ' active' : ''}`}

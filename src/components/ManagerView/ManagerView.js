@@ -16,15 +16,53 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
   const [amountGiven, setAmountGiven] = useState(0);
   const [change, setChange] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
+
+  const predefinedItems = [
+    { name: "네일", quantity: 1, price: 10000 },
+    { name: "기초", quantity: 1, price: 20000 },
+    { name: "헤어", quantity: 1, price: 30000 },
+    { name: "향수", quantity: 1, price: 40000 },
+    { name: "기타", quantity: 1, price: 50000 },
+  ];
+  const handleItemClick = (item) => {
+    setName(item.name);
+    setQuantity(item.quantity);
+    setPrice(item.price);
+    addItem(item);
+    setActiveModal(null); // 모달창 닫기
+  };
+  const handleCloseModal2 = () => {
+    setActiveModal(null);
+  };
 
   const handleBarcodeChange = (e) => {
     setBarcode(e.target.value);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
-      console.log(barcode);
-      setBarcode("");
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/items/${barcode}`
+        );
+        const data = response.data;
+        if (data && data.이름 && data.가격) {
+          addItem({
+            barcode: barcode,
+            name: data.이름,
+            quantity: 1,
+            price: data.가격,
+          });
+        } else {
+          alert("등록되지 않은 바코드입니다.");
+        }
+
+        setBarcode("");
+      } catch (e) {
+        console.error(e);
+        alert("상품 검색에 실패하였습니다.");
+      }
     }
   };
 
@@ -41,23 +79,23 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
       name: name.trim(),
       quantity: Number(quantity),
       price: Number(price),
-});
+    });
 
     setBarcode("");
     setName("");
     setQuantity("");
     setPrice("");
-};
+  };
 
-function generateOrderNumber() {
-  const now = new Date();
-  const year = now.getFullYear().toString().substr(-2);
-  const month = now.getMonth() + 1;
-  const day = now.getDate();
-  const randomNum = Math.floor(Math.random() * 10000);
+  function generateOrderNumber() {
+    const now = new Date();
+    const year = now.getFullYear().toString().substr(-2);
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const randomNum = Math.floor(Math.random() * 10000);
 
-  return `W${year}${month}${day}${randomNum}`;
-}
+    return `W${year}${month}${day}${randomNum}`;
+  }
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
@@ -83,23 +121,23 @@ function generateOrderNumber() {
     if (paymentType === "현금" && change < 0) {
       alert("받은 금액이 부족합니다.");
       return;
-    }
-    else {
+    } else {
       const orderNumber = generateOrderNumber(); // 주문번호 생성
       // 주문 정보를 서버에 보낼 데이터 형식으로 변경
-      const requestData = items.map(item => ({
-        orderNumber : orderNumber,
+      const requestData = items.map((item) => ({
+        orderNumber: orderNumber,
         itemName: item.name,
         quantity: item.quantity,
         price: item.price,
         paymentType,
         amountGiven,
         totalPrice: total,
-        change
+        change,
       }));
-  
+
       console.log(requestData);
-      axios.post("http://localhost:5000/api/orderSuccess", requestData)
+      axios
+        .post("http://localhost:5000/api/orderSuccess", requestData)
         .then((res) => {
           console.log(res.data);
           removeAllItems();
@@ -107,18 +145,16 @@ function generateOrderNumber() {
         .catch((err) => {
           console.log(err);
         });
-  
     }
-    console.log(items)
+    console.log(items);
     console.log("결제 정보를 데이터베이스에 저장하십시오.");
-  
-    setPaymentType('현금');
+
+    setPaymentType("현금");
     setAmountGiven(0);
     setChange(0);
-    alert ("결제가 완료되었습니다.");
+    alert("결제가 완료되었습니다.");
     setShowModal(false);
   };
-  
 
   const renderNumberPad = () => {
     return (
@@ -168,8 +204,6 @@ function generateOrderNumber() {
   useEffect(() => {
     setTotal(totalPrice);
   }, [totalPrice]);
-
-
 
   return (
     <div>
@@ -227,6 +261,20 @@ function generateOrderNumber() {
         관리
       </button>
       {menuOpen && <Modal handleClose={handleCloseModal} />}
+      {activeModal === "itemSelection" && (
+        <div className="item-selection-modal"
+        handleClose={handleCloseModal2}>
+          <div className="modal-content">
+            <div className="item-buttons">
+              {predefinedItems.map((item) => (
+                <button key={item.name} onClick={() => handleItemClick(item)}>
+                  {item.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <label>
@@ -235,7 +283,8 @@ function generateOrderNumber() {
               type="text"
               value={name}
               placeholder="상품명"
-              onChange={(e) => setName(e.target.value)}
+              onClick={() => setActiveModal("itemSelection")}
+              readOnly
             />
           </label>
           <label>

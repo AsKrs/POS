@@ -43,6 +43,8 @@ const editableFields = {
     AND (? IS NULL OR MONTH(order_time) = ?);
 `;
 
+  const barcodeSearch = `SELECT 이름, 가격 FROM products WHERE barcode = ? and deleteyn = 'N'`;
+
 module.exports = {
     getAllProducts,
     getAllBrand,
@@ -55,5 +57,6 @@ module.exports = {
     deleteTypes,
     orderSuccess,
     orderHistory,
+    barcodeSearch,
     updateProductField,
 };

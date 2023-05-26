@@ -28,7 +28,7 @@ const ManagerViewTable = ({
       <tbody>
         {items.map((item, index) => (
           <tr key={`${item.id}_${index}`}>
-            <td></td>
+            <td>{item.barcode}</td>
             <td>{index + 1}</td>
             <td>{item.name}</td>
             <td>{numberWithCommas(item.price)}원</td>
