@@ -283,8 +283,8 @@ const ManagerView = ({ addItem, items, removeItem, onMinus, onPlus }) => {
               type="text"
               value={name}
               placeholder="상품명"
-              onClick={() => setActiveModal("itemSelection")}
-              readOnly
+              //onClick={() => setActiveModal("itemSelection")}
+              onChange={(e) => setName(e.target.value)}
             />
           </label>
           <label>

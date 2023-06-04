@@ -3,7 +3,7 @@ const getAllBrand = "SELECT * FROM brand where deleteyn = 'N'";
 const getAllCategory = "SELECT * FROM types where deleteyn = 'N'";
 //////////////////////////////////
 
-const inventoryAdd = "INSERT INTO products (바코드, 이름, 수량, 가격, 종류, 브랜드) VALUES (?, ?, ?, ?, ?, ?)";
+const inventoryAdd = "INSERT INTO products (barcode, 이름, 수량, 가격, 종류, 브랜드) VALUES (?, ?, ?, ?, ?, ?)";
 const insertBrand = "INSERT INTO brand (브랜드) VALUES (?)";
 const insertTypes = "INSERT INTO types (types) VALUES (?)";
 
